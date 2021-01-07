@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <configuration monitorInterval="5" status="debug" strict="true" packages="id.co.nds.webapp.loggermask"> 
+	<Properties>
+		<Property name="log-path">D:/logs</Property>
+		<Property name="log-pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+	</Properties>
+  <appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${log-pattern}"/>      
+    </Console>
+
+
+    <File name="MyFile" fileName="${log-path}/application.log">
+        <PatternLayout pattern="${log-pattern}"/>
+        
+    </File>  
+    
+     <RollingFile name="RollingFile" fileName="${log-path}/jnds-ciri-service.log"
+		filePattern="${log-path}/jnds-ciri-service-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	 <RollingFile name="sch1RollingFile" fileName="${log-path}/jnds-ciri-service-schi.log"
+		filePattern="${log-path}/jnds-ciri-service-schi-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	<RollingFile name="sch2RollingFile" fileName="${log-path}/jnds-ciri-service-scho.log"
+		filePattern="${log-path}/jnds-ciri-service-scho-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	<RollingFile name="schParamRollingFile" fileName="${log-path}/jnds-ciri-service-schPrm.log"
+		filePattern="${log-path}/jnds-ciri-service-schPrm-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="10" />
+	</RollingFile>
+		
+	<RollingFile name="mqRollingFile" fileName="${log-path}/jnds-ciri-service-mq.log"
+		filePattern="${log-path}/jnds-ciri-service-mq-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	<RollingFile name="socketRollingFile" fileName="${log-path}/jnds-ciri-service-socket.log"
+		filePattern="${log-path}/jnds-ciri-service-socket-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	<RollingFile name="incProcessRollingFile" fileName="${log-path}/jnds-ciri-service-incoming.log"
+		filePattern="${log-path}/jnds-ciri-service-incoming-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+	
+	<RollingFile name="outProcessRollingFile" fileName="${log-path}/jnds-ciri-service-outgoing.log"
+		filePattern="${log-path}/jnds-ciri-service-outgoing-%d{yyyy-MM-dd}-%i.log" >
+		<PatternLayout pattern="${log-pattern}"/>	
+		<Policies>
+		  	<OnStartupTriggeringPolicy />
+		  	<TimeBasedTriggeringPolicy />
+			<SizeBasedTriggeringPolicy size="2 MB" />
+		</Policies>
+		<DefaultRolloverStrategy max="90" />
+	</RollingFile>
+               
+  </appenders>
+
+  <loggers>     
+    <Root level="debug" >    	
+         <AppenderRef ref="Console"/>
+         <AppenderRef ref="RollingFile"/>
+     </Root>
+     <Logger name="org.apache.struts2.json.JSONUtil" level="off"> 
+     	<AppenderRef ref="Console"/>
+     	<AppenderRef ref="RollingFile"/>
+     </Logger>   
+      <Logger name="com.opensymphony.xwork2" level="off"> 
+     	<AppenderRef ref="Console"/>
+     	<AppenderRef ref="RollingFile"/>
+     </Logger>
+     <Logger name="id.co.nds.gateway.scheduler.IncomingSendScheduler" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="sch1RollingFile"/>
+     </Logger>
+     <Logger name="id.co.nds.gateway.repo.SendIncomingToNcsFcd" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="sch1RollingFile"/>
+     </Logger>
+     <Logger name="id.co.nds.gateway.repo.SendOutgoingToKseiFcd" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="sch2RollingFile"/>
+     </Logger>
+     <Logger name="id.co.nds.gateway.scheduler.OutgoingSendScheduler" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="sch2RollingFile"/>
+     </Logger>
+     <Logger name="id.co.nds.gateway.scheduler.ReloadParamScheduler" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="schParamRollingFile"/>
+     </Logger>
+     
+     <Logger name="id.co.nds.gateway.ibmmq" level="debug"> 
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="mqRollingFile"/>
+     </Logger>
+     
+     <Logger name="id.co.nds.gateway.socket" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="socketRollingFile"/>
+     </Logger>
+     
+     <Logger name="id.co.nds.gateway.repo.IncomingProcessFcd" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="incProcessRollingFile"/>
+     </Logger>
+     	
+     <Logger name="id.co.nds.gateway.repo.OutgoingProcessFcd" level="debug">
+     	<AppenderRef ref="RollingFile"/>
+     	<AppenderRef ref="outProcessRollingFile"/>
+     </Logger>
+     
+     
+  </loggers>
+  
+   
+</configuration>

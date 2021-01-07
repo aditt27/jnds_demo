@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	<bean id="JNDIDataSource" class="id.co.nds.dbaccess.connection.implement.DataSourceJndiImpl" scope="singleton" >
+		<property name="listJNDI">
+			<props>
+				<!-- GLASHFISH -->
+				<!-- <prop key="default">jdbc/logging</prop> -->
+
+				<!-- JBOSS EAP -->
+				<!-- <prop key="default">java:/jboss/jdbc/kiosk</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="DriverManagerDataSource" class="id.co.nds.dbaccess.connection.implement.DataSourceDriverManagerImpl" scope="singleton" >
+		<property name="listDriverProp">
+			<list>
+				<!-- <ref bean="defaultDSDriver" /> -->
+				<ref bean="postgreDSDriver" />
+			</list>
+		</property>
+	</bean>
+	<bean id="defaultDSDriver" class="id.co.nds.dbaccess.connection.implement.SimpleDSEnt" scope="singleton" >
+		<property name="name" value="driverManaMySQL" />
+		<property name="driver" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/test" />
+		<property name="username" value="root" />
+		<property name="password" value="passw0rd" />
+	</bean>
+	<bean id="postgreDSDriver" class="id.co.nds.dbaccess.connection.implement.SimpleDSEnt" scope="singleton" >
+		<property name="name" value="default" />
+		<property name="driver" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/TEST_GADAI" />
+		<property name="username" value="postgres" />
+		<property name="password" value="13245678" />
+	</bean>
+
+	<!-- REGIONAL PAGING CONFIGURATION -->
+	<bean id="oracle" class="com.adibu.training.jnds_demo.plugin.SQLPagingOracle11g" />
+	<bean id="mysql" class="com.adibu.training.jnds_demo.plugin.SQLPagingMySQL" scope="singleton" />
+	<bean id="postgresql" class="com.adibu.training.jnds_demo.plugin.SQLPagingPostgreSQL" scope="singleton" />
+	<!-- END of REGIONAL PAGING CONFIGURATION -->
+
+</beans>

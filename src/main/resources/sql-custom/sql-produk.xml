@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<data-access>
+    <statement id="queryProdukCustom">
+        <![CDATA[
+            SELECT * FROM ms_produk_gadai WHERE produk_name LIKE {criteria};
+        ]]>
+    </statement>
+</data-access>
